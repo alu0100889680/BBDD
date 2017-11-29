@@ -1,0 +1,124 @@
+SQL> SPOOL
+currently spooling to P8_2.lst
+SQL> SELECT * FROM TITULACION;
+
+T    FAC                                                                        
+---- ------------------------------------------------------------               
+GF                                                                              
+GM                                                                              
+GII                                                                             
+MII                                                                             
+
+SQL> UPDATE TITULACION SET FAC = &ETSII WHERE T = &GII;
+Enter value for etsii: ;
+Enter value for gii: ;
+old   1: UPDATE TITULACION SET FAC = &ETSII WHERE T = &GII
+new   1: UPDATE TITULACION SET FAC = ; WHERE T = ;
+UPDATE TITULACION SET FAC = ; WHERE T = ;
+                            *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> UPDATE TITULACION SET FAC = &facultad WHERE T = &titulacion;
+Enter value for facultad: ETSII
+Enter value for titulacion: GII
+old   1: UPDATE TITULACION SET FAC = &facultad WHERE T = &titulacion
+new   1: UPDATE TITULACION SET FAC = ETSII WHERE T = GII
+UPDATE TITULACION SET FAC = ETSII WHERE T = GII
+                                            *
+ERROR at line 1:
+ORA-00904: "GII": invalid identifier 
+
+
+SQL> UPDATE TITULACION SET FAC = &ETSII WHERE T = &GII;
+Enter value for etsii: 'ETSII'
+Enter value for gii: 'GII'
+old   1: UPDATE TITULACION SET FAC = &ETSII WHERE T = &GII
+new   1: UPDATE TITULACION SET FAC = 'ETSII' WHERE T = 'GII'
+
+1 row updated.
+
+SQL> SELECT * FROM TITULACION;
+
+T    FAC                                                                        
+---- ------------------------------------------------------------               
+GF                                                                              
+GM                                                                              
+GII  ETSII                                                                      
+MII                                                                             
+
+SQL> UPDATE TITULACION SET FAC = &facultad WHERE T = &titulacion;
+Enter value for facultad: 'MATEMATICAS'
+Enter value for titulacion: 'GF'
+old   1: UPDATE TITULACION SET FAC = &facultad WHERE T = &titulacion
+new   1: UPDATE TITULACION SET FAC = 'MATEMATICAS' WHERE T = 'GF'
+
+1 row updated.
+
+SQL> UPDATE TITULACION SET FAC = &facultad WHERE T = &titulacion;
+Enter value for facultad: MATEMATICAS
+Enter value for titulacion: L
+old   1: UPDATE TITULACION SET FAC = &facultad WHERE T = &titulacion
+new   1: UPDATE TITULACION SET FAC = MATEMATICAS WHERE T = L
+UPDATE TITULACION SET FAC = MATEMATICAS WHERE T = L
+                                                  *
+ERROR at line 1:
+ORA-00904: "L": invalid identifier 
+
+
+SQL> UPDATE TITULACION SET FAC = &facultad WHERE T = &titulacion;
+Enter value for facultad: 'MATEMATICAS'
+Enter value for titulacion: 'GM'
+old   1: UPDATE TITULACION SET FAC = &facultad WHERE T = &titulacion
+new   1: UPDATE TITULACION SET FAC = 'MATEMATICAS' WHERE T = 'GM'
+
+1 row updated.
+
+SQL> SELECT * FROM TITULACION;
+
+T    FAC                                                                        
+---- ------------------------------------------------------------               
+GF   MATEMATICAS                                                                
+GM   MATEMATICAS                                                                
+GII  ETSII                                                                      
+MII                                                                             
+
+SQL> UPDATE TITULACION SET FAC = &facultad WHERE T = &titulacion;
+Enter value for facultad: 'ETSII'
+Enter value for titulacion: 'MII'
+old   1: UPDATE TITULACION SET FAC = &facultad WHERE T = &titulacion
+new   1: UPDATE TITULACION SET FAC = 'ETSII' WHERE T = 'MII'
+
+1 row updated.
+
+SQL> SELECT * FROM TITULACION;
+
+T    FAC                                                                        
+---- ------------------------------------------------------------               
+GF   MATEMATICAS                                                                
+GM   MATEMATICAS                                                                
+GII  ETSII                                                                      
+MII  ETSII                                                                      
+
+SQL> CREATE SYNONYM TITULACION TIT;
+CREATE SYNONYM TITULACION TIT
+                          *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> CREATE SYNONYM TIT FOR TITULACION;
+
+Synonym created.
+
+SQL> SELECT * FROM TIT;
+
+T    FAC                                                                        
+---- ------------------------------------------------------------               
+GF   MATEMATICAS                                                                
+GM   MATEMATICAS                                                                
+GII  ETSII                                                                      
+MII  ETSII                                                                      
+
+SQL> SPOOL OFF
