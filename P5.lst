@@ -1,0 +1,4 @@
+SQL> SPOOL OFF
+SQL> SPOOL
+currently spooling to P5.lst
+SQL> SPOOL OFF
