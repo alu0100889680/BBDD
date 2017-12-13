@@ -1,0 +1,322 @@
+SQL> SPOOL
+currently spooling to TUTORIA13.lst
+SQL> SET SERVEROUTPUT ON
+SQL> BEGIN DBMS_OUTPUT.PUT_LINE('HOLA_MUNDO');
+  2  END;
+  3  ;
+  4  -
+  5  .
+SQL> SET SERVEROUTPUT ON
+SQL> BEGIN DBMS_OUTPUT.PUT_LINE('HOLA_MUNDO');
+  2  END;
+  3  .
+SQL> BEGIN DBMS_OUTPUT.PUT_LINE('HOLA_MUNDO');
+  2  END;
+  3  /
+HOLA_MUNDO                                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> SAVE HOLAMUNDO
+Created file HOLAMUNDO.sql
+SQL> GET HOLAMUNDO.sql
+  1  BEGIN DBMS_OUTPUT.PUT_LINE('HOLA_MUNDO');
+  2* END;
+SQL> RUN
+  1  BEGIN DBMS_OUTPUT.PUT_LINE('HOLA_MUNDO');
+  2* END;
+HOLA_MUNDO                                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> CREATE PROCEDURE HOLAMUNDO()
+  2  IS
+  3  .
+SQL> CREATE PROCEDURE HOLAMUNDO() IS
+  2  BEGIN
+  3  DBMS_OUTPUT.PUT_LINE('Hola mundo');
+  4  END;
+  5  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> SHOW ERRORS
+Errors for PROCEDURE HOLAMUNDO:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+1/21     PLS-00103: Encountered the symbol ")" when expecting one of the        
+         following:                                                             
+         <an identifier> <a double-quoted delimited-identifier>                 
+         current delete exists prior                                            
+                                                                                
+SQL> CREATE PROCEDURE HOLAMUNDO() IS
+  2  BEGIN
+  3  DBMS_OUTPUT.PUT_LINE('Hola mundo');
+  4  END;
+  5  
+  6  
+  7  ;
+  8  .
+SQL> CREATE PROCEDURE HOLAMUNDO() IS
+  2  CREATE PROCEDURE HOLAMUNDO() IS.
+  3  .
+SQL> DROP PROCEDURE HOLAMUNDO.
+  2  .
+SQL> DROP PROCEDURE HOLAMUNDO
+  2  .
+SQL> DROP PROCEDURE HOLAMUNDO
+  2  /
+
+Procedure dropped.
+
+SQL> CREATE PROCEDURE HOLAMUNDO IS
+  2  BEGIN
+  3  DBMS_OUTPUT.PUT_LINE('Hola mundo');
+  4  END;
+  5  /
+
+Procedure created.
+
+SQL> CALL HOLAMUNDO();
+Hola mundo                                                                      
+
+Call completed.
+
+SQL> CREATE FUNCTION DOBLE(X NUMBER)
+  2  RETURN NUMBER IS
+  3  BEGIN
+  4  RETURN 2*X;
+  5  END;
+  6  /
+
+Function created.
+
+SQL> CALL DOBLE(4);
+CALL DOBLE(4)
+     *
+ERROR at line 1:
+ORA-06576: not a valid function or procedure name 
+
+
+SQL> CALL DOBLE 4;
+CALL DOBLE 4
+     *
+ERROR at line 1:
+ORA-06576: not a valid function or procedure name 
+
+
+SQL> CALL DOBLE(4);
+CALL DOBLE(4)
+     *
+ERROR at line 1:
+ORA-06576: not a valid function or procedure name 
+
+
+SQL> SELECT DOBLE(4) FROM DUAL;
+
+  DOBLE(4)                                                                      
+----------                                                                      
+         8                                                                      
+
+SQL> CREATE PROCEDURE NOMBRE(dni PROFESOR.DNI%TYPE) IS
+  2  nombre PROFESOR.P%TYPE;
+  3  BEGIN
+  4  SELECT P
+  5  INTO nombre
+  6  FROM PROFESOR
+  7  WHERE DNI = d;
+  8  DBMS_OUT.PUT_LINE('NOMBRE: '|| NOMBRE);
+  9  END;
+ 10  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> SHOW ERRORS;
+Errors for PROCEDURE NOMBRE:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+4/1      PL/SQL: SQL Statement ignored                                          
+7/13     PL/SQL: ORA-00904: "D": invalid identifier                             
+8/1      PL/SQL: Statement ignored                                              
+8/1      PLS-00201: identifier 'DBMS_OUT.PUT_LINE' must be declared             
+SQL> CREATE PROCEDURE NOMBRE(dni PROFESOR.DNI%TYPE) IS
+  2  nombre PROFESOR.P%TYPE;
+  3  BEGIN
+  4  SELECT P
+  5  INTO nombre
+  6  FROM PROFESOR
+  7  WHERE DNI = d;
+  8  DBMS_OUT.PUT_LINE('NOMBRE: ' || nombre);
+  9  /
+CREATE PROCEDURE NOMBRE(dni PROFESOR.DNI%TYPE) IS
+                 *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> DROP PROCEDURE NOMBRE
+  2  /
+
+Procedure dropped.
+
+SQL> CREATE PROCEDURE NOMBRE(dni PROFESOR.DNI%TYPE) IS
+  2  nombre PROFESOR.P%TYPE;
+  3  BEGIN
+  4  SELECT P
+  5  INTO nombre
+  6  FROM PROFESOR
+  7  WHERE DNI = d;
+  8  DBMS_OUT.PUT_LINE('NOMBRE: ' || nombre);
+  9  END;
+ 10  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> SHOW ERRORS
+Errors for PROCEDURE NOMBRE:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+4/1      PL/SQL: SQL Statement ignored                                          
+7/13     PL/SQL: ORA-00904: "D": invalid identifier                             
+8/1      PL/SQL: Statement ignored                                              
+8/1      PLS-00201: identifier 'DBMS_OUT.PUT_LINE' must be declared             
+SQL> DROP PROCEDURE NOMBRE
+  2  /
+
+Procedure dropped.
+
+SQL> CREATE PROCEDURE NOMBRE(d PROFESOR.DNI%TYPE) IS
+  2  nombre PROFESOR.P%TYPE;
+  3  BEGIN
+  4  SELECT P
+  5  INTO nombre
+  6  FROM PROFESOR
+  7  WHERE DNI = d;
+  8  DBMS_OUT.PUT_LINE('NOMBRE: ' || nombre);
+  9  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> SHOW ERRORS
+Errors for PROCEDURE NOMBRE:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+8/40     PLS-00103: Encountered the symbol "end-of-file" when expecting         
+         one of the following:                                                  
+         ( begin case declare end exception exit for goto if loop mod           
+         null pragma raise return select update while with                      
+         <an identifier> <a double-quoted delimited-identifier>                 
+         <a bind variable> << continue close current delete fetch lock          
+         insert open rollback savepoint set sql execute commit forall           
+         merge pipe purge json_exists json_value json_query                     
+         json_object json_array                                                 
+                                                                                
+SQL> DROP PROCEDURE NOMBRE
+  2  /
+
+Procedure dropped.
+
+SQL> CREATE PROCEDURE NOMBRE(d PROFESOR.DNI%TYPE) IS
+  2  nombre PROFESOR.P%TYPE;
+  3  BEGIN
+  4  SELECT P
+  5  INTO nombre
+  6  FROM PROFESOR
+  7  WHERE DNI = d;
+  8  DBMS_OUT.PUT_LINE('NOMBRE: ' || nombre);
+  9  END;
+ 10  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> SHOW ERRORS
+Errors for PROCEDURE NOMBRE:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+8/1      PL/SQL: Statement ignored                                              
+8/1      PLS-00201: identifier 'DBMS_OUT.PUT_LINE' must be declared             
+SQL> DROP PROCEDURE NOMBRE
+  2  /
+
+Procedure dropped.
+
+SQL> CREATE PROCEDURE NOMBRE(d PROFESOR.DNI%TYPE) IS
+  2  nombre PROFESOR.P%TYPE;
+  3  BEGIN
+  4  SELECT P
+  5  INTO nombre
+  6  FROM PROFESOR
+  7  WHERE DNI = d;
+  8  DBMS_OUTPUT.PUT_LINE('NOMBRE: ' || nombre);
+  9  END;
+ 10  /
+
+Procedure created.
+
+SQL> NOMBRE(1111);
+SP2-0734: unknown command beginning "NOMBRE(111..." - rest of line ignored.
+SQL> BEGIN
+  2  NOMBRE(1111);
+  3  END;
+  4  /
+NOMBRE: JUAN                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  /
+DECLARE
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7: 
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the 
+following: 
+begin function pragma procedure subtype type <an identifier> 
+<a double-quoted delimited-identifier> current cursor delete 
+exists prior 
+
+
+SQL> DECLARE CURSOR cursor
+  2  ;
+  3  .
+SQL> DROP CURSOR cursor
+  2  ;
+DROP CURSOR cursor
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> DROP CURSOR cursor
+  2  /
+DROP CURSOR cursor
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> clear
+SQL> DECLARE
+  2  CURSOR C IS
+  3  SELECT *
+  4  FROM PROFESOR;
+  5  var C%ROWTYPE
+  6  BEGIN
+  7  OPEN C
+  8  FETCH C INTO var;
+  9  END;
+ 10  /
+BEGIN
+*
+ERROR at line 6:
+ORA-06550: line 6, column 1: 
+PLS-00103: Encountered the symbol "BEGIN" when expecting one of the following: 
+:= ( ; not null range default character 
+
+
+SQL> spool off
